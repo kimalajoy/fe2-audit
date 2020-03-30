@@ -8,7 +8,7 @@ const audit = {
 
     // What is the value of `this` when we call fn()?
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'global window object';
 
     return result;
   },
@@ -31,7 +31,7 @@ const audit = {
 
     // What is the value of `this` when we call data.verify())?
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'nameOfObject';
 
     return result;
   },
@@ -54,7 +54,7 @@ const audit = {
 
     // What is the value of `this` when we call dog.bark();
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'nameOfObject';
 
     return result;
   },
@@ -68,32 +68,35 @@ const audit = {
 
   exerciseD() {
 
-    let greeting = 'welcome';
+    let greeting = 'welcome'; //welcome
 
     const greetingGenerator = () => {
-      let greeting = 'hi';
+      let greeting = 'hi'; //hi
 
       if (greeting === 'hi') {
-        let greeting = 'hey';
+        let greeting = 'hey'; //hey
       }
 
-      // Log A: greeting
+      // Log A: greeting //hi
       const newGreeting = ()  => {
         greeting = 'hi';
 
-        // Log B: greeting
+        // Log B: greeting //hi
       };
 
       newGreeting();
 
-      // Log C: greeting
+      // Log C: greeting // hi
     };
 
-    // Log D: greeting
+    // Log D: greeting //welcome
     greetingGenerator();
 
     const result = [{
-      // 'ADD YOUR RESULT HERE';
+      'A': 'hi',
+      'B': 'hi',
+      'C': 'hi',
+      'D': 'welcome'
     }];
 
     return result;
@@ -109,21 +112,24 @@ const audit = {
   exerciseE() {
 
     var shoe = 'heel';
-    // Log A: 
+    // Log A: heel
 
     function putOnShoe() {
       shoe = 'boot';
 
-      // Log B: shoe
+      // Log B: shoe // boot
     }
 
-    // Log C: shoe
+    // Log C: shoe // boot - pretty sure this is leaking out because shoe was declared w/o a variable...
     putOnShoe();
 
-    // Log D: shoe
+    // Log D: shoe //heel
 
     const result = [{
-      // 'ADD YOUR RESULT HERE';
+      'A': 'heel',
+      'B':'boot',
+      'C':'boot',
+      'D': 'heel'
     }];
 
     return result;
@@ -174,7 +180,8 @@ const audit = {
     // e.g.
     // ['Beckon', 'El Five', 'ChoLon', 'Super Mega Bien']
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = restaurants.map(name => {
+      return name.name;
 
     return result;
   },
@@ -228,7 +235,8 @@ const audit = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = restaurants.map(takeOut => {
+      return {restaurant: takeOut.name, takeOut: takeOut.takeout};
 
     return result;
   },
@@ -282,7 +290,14 @@ const audit = {
     //    'Asian Fusion': ['ChoLon']
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = restaurants.reduce((acc, currentEl) => {
+       return currentEl.cuisine.forEach(food => {
+          if(!acc.includes(food)) {
+            acc.push(food)
+          }
+        })
+    return acc;
+    }, {});
 
     return result;
   },
